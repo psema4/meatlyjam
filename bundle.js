@@ -476,7 +476,7 @@ window.game.state.add('menu', {
         this.sprite3.scale.setMagnitude(0.5);
         this.center(this.sprite3, 210);
 
-        this.text1 = game.add.text(0,0, 'click or press space to start...');
+/*      this.text1 = game.add.text(0,0, 'click or press space to start...');
         this.text1.font = 'Patrick Hand';
         this.center(this.text1, 415);
 
@@ -486,10 +486,10 @@ window.game.state.add('menu', {
         this.text1.events.onInputDown.add(function() {
             this.startGame();
         }, this);
-
+*/
         this.text2 = game.add.text(0,0, 'play');
         this.text2.font = 'Patrick Hand';
-        this.center(this.text2, 256); //FIXME: attach text to button sprite
+        this.center(this.text2, 256); //FIXME: attach text to button sprite, crop button sprite and attach click handler to button (not text)
         this.text2.inputEnabled = true;
         this.text2.input.useHandCursor = true;
         this.text2.events.onInputDown.add(function() {
@@ -498,7 +498,7 @@ window.game.state.add('menu', {
 
         this.text3 = game.add.text(0,0, 'options');
         this.text3.font = 'Patrick Hand';
-        this.center(this.text3, 287); //FIXME: attach text to button sprite
+        this.center(this.text3, 287); //FIXME: attach text to button sprite, crop button sprite and attach click handler to button (not text)
         this.text3.inputEnabled = true;
         this.text3.input.useHandCursor = true;
         this.text3.events.onInputDown.add(function() {
@@ -577,14 +577,17 @@ window.game.state.add('options', {
         var volValue = gameConfig.soundcloud.volume.toFixed(1) + '';
 
         this.valDebug = game.add.text(240,100, debugValue);
+        this.valDebug.font = 'Patrick Hand';
         this.valDebug.inputEnabled = true;
         this.valDebug.input.useHandCursor = true;
 
         this.valSc = game.add.text(240,132, scValue);
+        this.valSc.font = 'Patrick Hand';
         this.valSc.inputEnabled = true;
         this.valSc.input.useHandCursor = true;
 
         this.valVol = game.add.text(240,164, volValue);
+        this.valVol.font = 'Patrick Hand';
         this.valVol.inputEnabled = true;
         this.valVol.input.useHandCursor = true;
 

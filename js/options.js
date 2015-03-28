@@ -35,14 +35,17 @@ window.game.state.add('options', {
         var volValue = gameConfig.soundcloud.volume.toFixed(1) + '';
 
         this.valDebug = game.add.text(240,100, debugValue);
+        this.valDebug.font = 'Patrick Hand';
         this.valDebug.inputEnabled = true;
         this.valDebug.input.useHandCursor = true;
 
         this.valSc = game.add.text(240,132, scValue);
+        this.valSc.font = 'Patrick Hand';
         this.valSc.inputEnabled = true;
         this.valSc.input.useHandCursor = true;
 
         this.valVol = game.add.text(240,164, volValue);
+        this.valVol.font = 'Patrick Hand';
         this.valVol.inputEnabled = true;
         this.valVol.input.useHandCursor = true;
 

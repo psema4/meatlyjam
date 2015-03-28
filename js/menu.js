@@ -19,7 +19,7 @@ window.game.state.add('menu', {
         this.sprite3.scale.setMagnitude(0.5);
         this.center(this.sprite3, 210);
 
-        this.text1 = game.add.text(0,0, 'click or press space to start...');
+/*      this.text1 = game.add.text(0,0, 'click or press space to start...');
         this.text1.font = 'Patrick Hand';
         this.center(this.text1, 415);
 
@@ -29,7 +29,7 @@ window.game.state.add('menu', {
         this.text1.events.onInputDown.add(function() {
             this.startGame();
         }, this);
-
+*/
         this.text2 = game.add.text(0,0, 'play');
         this.text2.font = 'Patrick Hand';
         this.center(this.text2, 256); //FIXME: attach text to button sprite, crop button sprite and attach click handler to button (not text)
