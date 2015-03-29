@@ -58,7 +58,6 @@ window.game.state.add('level1', {
                 s.anchor.setTo(0.5, 0.5);
                 s.scale.setMagnitude(0.2);
                 s.position.setTo(xOffset + (x*80), yOffset + (y*40));
-                //game.physics.enable(s, Phaser.Physics.ARCADE);
                 s.alpha = 0;
                 row.push(s);
             }
@@ -172,7 +171,7 @@ window.game.state.add('level1', {
             for (var y=0; y<4; y++) {
                 var row = [];
                 for (var x=0; x<3; x++) {
-                    var s = game.add.sprite(0,0, 'themeatly', 57, this.bgroup);
+                    var s = game.add.sprite(0,0, 'themeatly', 58, this.bgroup);
                     s.anchor.setTo(0.5, 0.5);
                     s.scale.setMagnitude(0.2);
                     s.position.setTo(xOffset + (x*80), yOffset + (y*40));
