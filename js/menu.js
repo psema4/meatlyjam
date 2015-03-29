@@ -4,32 +4,28 @@ window.game.state.add('menu', {
 
   , create: function() {
         game.stage.backgroundColor = '#ffffff';
+
         this.background = game.add.sprite(-10, 0, 'themeatly', 56);
         this.background.scale.setMagnitude(1.2);
 
-        this.sprite1 = game.add.sprite(0,0, 'themeatly', 62);
+        this.sprite1 = game.add.sprite(0,0, 'meatlyface');
         this.sprite1.scale.setMagnitude(0.5);
         this.center(this.sprite1, 70);
 
+        this.elglitch = game.add.sprite(20,320, 'themeatly', 55);
+        this.elglitch.scale.setMagnitude(0.35);
+        this.elglitch.alpha = 0;
+        if ('cordova' in window) this.elglitch.aplha = 1;
+
+        this.ideafairy = game.add.sprite(260,0, 'themeatly', 53);
+        this.ideafairy.scale.setMagnitude(0.35);
+        this.ideafairy.alpha = 0;
+
+        // Play Button
         this.sprite2 = game.add.sprite(0,0, 'themeatly', 63);
         this.sprite2.scale.setMagnitude(0.5);
         this.center(this.sprite2, 180);
 
-        this.sprite3 = game.add.sprite(0,0, 'themeatly', 63);
-        this.sprite3.scale.setMagnitude(0.5);
-        this.center(this.sprite3, 210);
-
-/*      this.text1 = game.add.text(0,0, 'click or press space to start...');
-        this.text1.font = 'Patrick Hand';
-        this.center(this.text1, 415);
-
-        this.text1.inputEnabled = true;
-        this.text1.input.useHandCursor = true;
-
-        this.text1.events.onInputDown.add(function() {
-            this.startGame();
-        }, this);
-*/
         this.text2 = game.add.text(0,0, 'play');
         this.text2.font = 'Patrick Hand';
         this.center(this.text2, 256); //FIXME: attach text to button sprite, crop button sprite and attach click handler to button (not text)
@@ -38,6 +34,11 @@ window.game.state.add('menu', {
         this.text2.events.onInputDown.add(function() {
             this.startGame();
         }, this);
+
+        // Options Button
+        this.sprite3 = game.add.sprite(0,0, 'themeatly', 63);
+        this.sprite3.scale.setMagnitude(0.5);
+        this.center(this.sprite3, 210);
 
         this.text3 = game.add.text(0,0, 'options');
         this.text3.font = 'Patrick Hand';
@@ -48,16 +49,16 @@ window.game.state.add('menu', {
             game.state.start('options');
         }, this);
 
-
+        // Start playlist playback if it's configured and not already playing
         if (gameConfig.soundcloud.enabled) {
-            setupSoundcloud(function() { scPlayer.play(); });
+            if (window.scConfigured && !window.playlistStarted) {
+                window.playlistStarted = true;
+                setupSoundcloud(function() { scPlayer.play(); });
+            }
         }
     }
 
   , update: function() {
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            this.startGame();
-        }
     }
 
   , startGame: function() {

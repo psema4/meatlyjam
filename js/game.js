@@ -1,10 +1,13 @@
 window.gameConfig = (localStorage && localStorage.meatlyGameConfig) ? JSON.parse(localStorage.meatlyGameConfig) : {
     debug: false
 
+  , hiscore: 0
+
   , soundcloud: {
         enabled: true
       , appId: '134d492001620300e082175d8de51a04' //FIXME: expose to localStorage? also, add readme note for forks (use new appId)
-      , playlistUrl: 'https://soundcloud.com/psema4/sets/music-mondays-vol-2'
+      , playlistUrl: 'https://soundcloud.com/psema4/sets/music-mondays-vol-2' //FIXME: breakout to collection, create new state to let user select from list
+//      , playlistUrl: 'https://soundcloud.com/psema4/sets/the-incredible-glitch'  
       , volume: 0.5
     }
 };
@@ -34,6 +37,7 @@ window.WebFontConfig = {
 
 };
 
+window.playlistStarted = false;
 window.scConfigured = false;
 window.setupSoundcloud = function(cb) {
     if (gameConfig.soundcloud.enabled) {
@@ -100,3 +104,8 @@ window.addEventListener('load', function() {
     console.log('preloading assets');
     game.state.start('startup');
 });
+
+//FIXME: DEBUG
+window.$state = function() {
+    return game.state.states[game.state.current];
+}

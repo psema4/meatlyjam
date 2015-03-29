@@ -4,20 +4,20 @@ window.game.state.add('options', {
 
   , create: function() {
         game.stage.backgroundColor = '#ffffff';
+
         this.background = game.add.sprite(-10, 0, 'themeatly', 56);
         this.background.scale.setMagnitude(1.2);
 
-        this.text1 = game.add.text(0,0, 'options');
-        this.text1.font = 'Patrick Hand';
-        this.center(this.text1, 415);
-
-
-        this.text1.inputEnabled = true;
-        this.text1.input.useHandCursor = true;
-
-        this.text1.events.onInputDown.add(function() {
+        // ipad's "home button" returns to the main menu
+        this.backButton = game.add.sprite(0,0, 'ipadbtn');
+        this.backButton.scale.setMagnitude(1.2);
+        this.center(this.backButton, 364);
+        this.backButton.position.x += 5;
+        this.backButton.inputEnabled = true;
+        this.backButton.input.useHandCursor = true;
+        this.backButton.events.onInputDown.add(function() {
             game.state.start('menu');
-        }, this);
+        });
 
         // setup option labels
         this.lblDebug = game.add.text(100,100, 'debug:');
@@ -29,10 +29,14 @@ window.game.state.add('options', {
         this.lblScVolume = game.add.text(100,164, 'volume:');
         this.lblScVolume.font = 'Patrick Hand';
 
+        this.lblScPlaylist = game.add.text(100,196, 'playlist:');
+        this.lblScPlaylist.font = 'Patrick Hand';
+
         // setup option values
         var debugValue = gameConfig.debug ? 'on' : 'off';
         var scValue = gameConfig.soundcloud.enabled ? 'on' : 'off';
         var volValue = gameConfig.soundcloud.volume.toFixed(1) + '';
+        //var plValue = gameConfig.soundcloud.playlistUrl;
 
         this.valDebug = game.add.text(240,100, debugValue);
         this.valDebug.font = 'Patrick Hand';
@@ -48,6 +52,11 @@ window.game.state.add('options', {
         this.valVol.font = 'Patrick Hand';
         this.valVol.inputEnabled = true;
         this.valVol.input.useHandCursor = true;
+
+        this.valPlaylistSelect = game.add.text(240,196, 'select');
+        this.valPlaylistSelect.font = 'Patrick Hand';
+        this.valPlaylistSelect.inputEnabled = true;
+        this.valPlaylistSelect.input.useHandCursor = true;
 
         // option value event handlers
         this.valDebug.events.onInputDown.add(function() {
@@ -80,6 +89,34 @@ window.game.state.add('options', {
 
             scPlayer.volume(vol);
             this.valVol.text = gameConfig.soundcloud.volume.toFixed(1) + '';
+        }, this);
+
+        this.valPlaylistSelect.events.onInputDown.add(function() {
+            var result = prompt('Enter a playlist address:', gameConfig.soundcloud.playlistUrl);
+
+            if (result) {
+                if (result.match(/^https?:\/\/soundcloud\.com\//)) {
+                    gameConfig.soundcloud.playlistUrl = result;
+                    console.log('saving playlist: %s', gameConfig.soundcloud.playlistUrl);
+                    saveGameConfig();
+
+                    this.valPlaylistSelect.text = 'saved';
+
+                    var self = this;
+                    setTimeout(function() {
+                        self.valPlaylistSelect.text = 'select';
+                    }, 2000);
+
+                } else {
+                    console.log('invalid response, playlist change cancelled');
+                    this.valPlaylistSelect.text = 'sorry';
+
+                    var self = this;
+                    setTimeout(function() {
+                        self.valPlaylistSelect.text = 'select';
+                    }, 2000);
+                }
+            }
         }, this);
     }
 

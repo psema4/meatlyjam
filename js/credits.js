@@ -7,6 +7,17 @@ window.game.state.add('credits', {
         this.background = game.add.sprite(-10, 0, 'themeatly', 56);
         this.background.scale.setMagnitude(1.2);
 
+        // ipad's "home button" returns to the main menu
+        this.backButton = game.add.sprite(0,0, 'ipadbtn');
+        this.backButton.scale.setMagnitude(1.2);
+        this.center(this.backButton, 364);
+        this.backButton.position.x += 5;
+        this.backButton.inputEnabled = true;
+        this.backButton.input.useHandCursor = true;
+        this.backButton.events.onInputDown.add(function() {
+            game.state.start('menu');
+        });
+
         this.lines = [
             {
                 text: 'credits'
@@ -58,11 +69,11 @@ window.game.state.add('credits', {
 
             if (line.type === 'title') {
                 line.gameObject.fontSize = 64;
-                line.gameObject.fill = '#ee0000';
+                line.gameObject.fill = '#000000';
 
             } else if (line.type === 'subtitle') {
                 line.gameObject.fontSize = 32;
-                line.gameObject.fill = '#ee0000';
+                line.gameObject.fill = '#b03a00'; // meatly-red
 
             } else {
                 line.gameObject.fontSize = 24;
