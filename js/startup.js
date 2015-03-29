@@ -9,6 +9,7 @@ window.game.state.add('startup', {
     }
 
   , create: function() {
+        game.stage.backgroundColor = '#ffffff';
     }
 
   , update: function() {

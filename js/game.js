@@ -28,7 +28,12 @@ window.WebFontConfig = {
     active: function() {
         game.time.events.add(Phaser.Timer.SECOND, function() {
             console.log('launching menu');
-            game.state.start('menu');
+
+            // delay startup for cordova?
+            setTimeout(function() {
+                game.state.start('menu');
+            }, 3000);
+
         }, this);
     },
     google: {
@@ -103,6 +108,13 @@ window.addEventListener('load', function() {
     setupSoundcloud();
     console.log('preloading assets');
     game.state.start('startup');
+
+    setTimeout(function() {
+        // hack to fix alignment on android
+        if ('cordova' in window && window.cordova) {
+            document.querySelector('#screen').style.marginLeft = '-20px';
+        }
+    }, 100);
 });
 
 //FIXME: DEBUG
